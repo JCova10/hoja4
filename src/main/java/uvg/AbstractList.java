@@ -1,7 +1,14 @@
 package uvg;
 
-public class DoubleLinkedList<T>
-{
+public abstract class AbstractList<T> {
+    public abstract boolean isEmpty();
+    public abstract int size();
+    public abstract void add(T item);
+    public abstract T remove(T item);
+    public abstract T get(int index);
+}
+
+public class DoubleLinkedList<T> extends AbstractList<T> {
     public class Node {
         T data;
         Node next;
@@ -18,13 +25,23 @@ public class DoubleLinkedList<T>
     public Node tail;
     public int size;
 
-    public void DoublyLinkedList() {
+    public DoubleLinkedList() {
         this.head = null;
         this.tail = null;
         this.size = 0;
     }
 
-    // Agregar un elemento al final de la lista
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    @Override
+    public int size() {
+        return size;
+    }
+
+    @Override
     public void add(T item) {
         Node newNode = new Node(item);
         if (head == null) {
@@ -37,7 +54,7 @@ public class DoubleLinkedList<T>
         size++;
     }
 
-    // Eliminar un elemento de la lista
+    @Override
     public T remove(T item) {
         Node current = head;
         while (current != null) {
@@ -62,7 +79,7 @@ public class DoubleLinkedList<T>
         return null; // Si el elemento no se encuentra
     }
 
-    // Obtener un elemento por índice
+    @Override
     public T get(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Índice fuera de rango");
